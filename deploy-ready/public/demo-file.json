@@ -1,0 +1,27 @@
+{
+  "system": "CareerTrack Application Tracker",
+  "version": "1.0.0",
+  "purpose": "Demo credentials file for sign-in and local testing",
+  "demoUser": {
+    "fullName": "Ramya Ranjith",
+    "normalizedName": "ramya ranjith",
+    "email": "ramya@college.edu",
+    "password": "password123",
+    "role": "Computer Science Final Year Student",
+    "targetRole": "Software Engineer / Cloud Trainee"
+  },
+  "database": {
+    "table": "user_details",
+    "schema": "job_tracker",
+    "sampleApplications": 8,
+    "sampleCompanies": 6,
+    "sampleInterviews": 5,
+    "sampleOffers": 2
+  },
+  "howToSignIn": {
+    "step1": "Go to /signin",
+    "step2": "Enter email 'ramya@college.edu' or click Auto-Fill Demo",
+    "step3": "Enter password 'password123'",
+    "step4": "Click 'Sign In' to access full tracking dashboard"
+  }
+}

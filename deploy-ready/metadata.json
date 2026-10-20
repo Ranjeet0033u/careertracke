@@ -1,0 +1,8 @@
+{
+  "name": "CareerTrack — Job \u0026 Internship Application Tracker",
+  "description": "A student-ready job and internship application tracking dashboard with tracking for companies, applications, interviews, follow-ups, offers, and reports.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
