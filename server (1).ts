@@ -148,7 +148,29 @@ let companies: Company[] = [
   { companyId: 3, name: 'BrightSoft', location: 'Hyderabad, India', roleOffered: 'Java Developer Intern', contactEmail: 'hr@brightsoft.com' },
   { companyId: 4, name: 'Nexa Systems', location: 'Chennai, India', roleOffered: 'Associate Engineer', contactEmail: 'jobs@nexa.com' },
   { companyId: 5, name: 'TechCorp', location: 'Pune, India', roleOffered: 'Data Analyst', contactEmail: 'hr@techcorp.com' },
-  { companyId: 6, name: 'CodeLabs', location: 'Delhi, India', roleOffered: 'Web Development Intern', contactEmail: 'careers@codelabs.com' }
+  { companyId: 6, name: 'CodeLabs', location: 'Delhi, India', roleOffered: 'Web Development Intern', contactEmail: 'careers@codelabs.com' },
+  // Product-based companies (7-16)
+  { companyId: 7, name: 'Zoho Corporation', location: 'Chennai, India', roleOffered: 'Software Developer Intern', contactEmail: 'careers@zoho.com' },
+  { companyId: 8, name: 'Freshworks', location: 'Chennai, India', roleOffered: 'Product Engineer Intern', contactEmail: 'careers@freshworks.com' },
+  { companyId: 9, name: 'Microsoft India', location: 'Hyderabad, India', roleOffered: 'Software Engineer Intern', contactEmail: 'careers@microsoft.com' },
+  { companyId: 10, name: 'Google India', location: 'Bangalore, India', roleOffered: 'Software Engineer Intern', contactEmail: 'careers@google.com' },
+  { companyId: 11, name: 'Amazon India', location: 'Bangalore, India', roleOffered: 'SDE Intern', contactEmail: 'careers@amazon.in' },
+  { companyId: 12, name: 'Adobe India', location: 'Noida, India', roleOffered: 'Computer Scientist Intern', contactEmail: 'careers@adobe.com' },
+  { companyId: 13, name: 'Flipkart', location: 'Bangalore, India', roleOffered: 'Backend Developer Intern', contactEmail: 'careers@flipkart.com' },
+  { companyId: 14, name: 'Paytm', location: 'Noida, India', roleOffered: 'Software Developer Intern', contactEmail: 'careers@paytm.com' },
+  { companyId: 15, name: 'Swiggy', location: 'Bangalore, India', roleOffered: 'Data Analyst Intern', contactEmail: 'careers@swiggy.in' },
+  { companyId: 16, name: 'Oracle India', location: 'Hyderabad, India', roleOffered: 'Associate Software Engineer', contactEmail: 'careers@oracle.com' },
+  // Service-based companies (17-26)
+  { companyId: 17, name: 'Infosys', location: 'Chennai, India', roleOffered: 'Systems Engineer', contactEmail: 'askus@infosys.com' },
+  { companyId: 18, name: 'Tata Consultancy Services', location: 'Chennai, India', roleOffered: 'Assistant System Engineer', contactEmail: 'careers@tcs.com' },
+  { companyId: 19, name: 'Wipro', location: 'Bangalore, India', roleOffered: 'Project Engineer', contactEmail: 'careers@wipro.com' },
+  { companyId: 20, name: 'HCLTech', location: 'Noida, India', roleOffered: 'Graduate Engineer Trainee', contactEmail: 'careers@hcltech.com' },
+  { companyId: 21, name: 'Tech Mahindra', location: 'Pune, India', roleOffered: 'Associate Software Engineer', contactEmail: 'careers@techmahindra.com' },
+  { companyId: 22, name: 'Cognizant', location: 'Chennai, India', roleOffered: 'Programmer Analyst Trainee', contactEmail: 'careers@cognizant.com' },
+  { companyId: 23, name: 'Capgemini', location: 'Mumbai, India', roleOffered: 'Analyst', contactEmail: 'careers@capgemini.com' },
+  { companyId: 24, name: 'Accenture', location: 'Bangalore, India', roleOffered: 'Associate Software Engineer', contactEmail: 'careers@accenture.com' },
+  { companyId: 25, name: 'LTIMindtree', location: 'Mumbai, India', roleOffered: 'Graduate Engineer Trainee', contactEmail: 'careers@ltimindtree.com' },
+  { companyId: 26, name: 'Mphasis', location: 'Bangalore, India', roleOffered: 'Software Engineer Trainee', contactEmail: 'careers@mphasis.com' }
 ];
 
 let applications: Application[] = [
@@ -175,7 +197,6 @@ let offers: Offer[] = [
   { offerId: 2, applicationId: 8, packageLpa: 8.50, deadline: '2026-10-28', offerStatus: 'Pending' }
 ];
 
-let nextCompanyId = 7;
 let nextApplicationId = 9;
 let nextInterviewId = 6;
 let nextOfferId = 3;
@@ -217,7 +238,7 @@ function getRoleAndCompany(applicationId: number): string {
 
 function renderCompaniesTable(list: Company[]): string {
   if (list.length === 0) {
-    return "<tr><td colspan='5' style='text-align:center;padding:24px;color:#66758A;'>No companies recorded yet. Add your first company using the form on the left.</td></tr>";
+    return "<tr><td colspan='4' style='text-align:center;padding:24px;color:#66758A;'>No companies available.</td></tr>";
   }
   let sb = '';
   let idx = 1;
@@ -227,19 +248,6 @@ function renderCompaniesTable(list: Company[]): string {
       <td class='primary-cell-text'>${escapeHtml(c.name)}</td>
       <td>${escapeHtml(c.location)}</td>
       <td>${escapeHtml(c.contactEmail)}</td>
-      <td style='text-align: right;'>
-        <div class='actions-cell' style='justify-content: flex-end;'>
-          <a href='#modal-update-company' class='btn-icon-only' title='Edit Company' style='text-decoration:none;display:inline-flex;align-items:center;justify-content:center;color:#2563A6;background:#F0F6FD;'>
-            <svg width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><path d='M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7'></path><path d='M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z'></path></svg>
-          </a>
-          <form action='/delete-company' method='POST' style='display:inline;'>
-            <input type='hidden' name='companyId' value='${c.companyId}'>
-            <button type='submit' class='btn-icon-only btn-delete' title='Delete Company'>
-              <svg width='15' height='15' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><polyline points='3 6 5 6 21 6'></polyline><path d='M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2'></path></svg>
-            </button>
-          </form>
-        </div>
-      </td>
     </tr>`;
   }
   return sb;
@@ -954,40 +962,6 @@ function renderSignInPage(error?: string, registered?: boolean): string {
         <a href="/signup" class="auth-toggle-btn">Register</a>
       </div>
 
-      <!-- Demo Account Card & Quick Auto-Fill (demo-file) -->
-      <div class="demo-box">
-        <div class="demo-box-header">
-          <div class="demo-box-title">
-            <svg class="demo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-            <span>Demo Account Credentials</span>
-          </div>
-          <a href="/demo-file" target="_blank" class="demo-file-chip" title="View demo credentials file (demo-file.json)">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
-            <span>demo-file</span>
-          </a>
-        </div>
-        <div class="demo-box-creds">
-          <div class="demo-cred-row">
-            <span class="demo-cred-lbl">Email:</span>
-            <span class="demo-cred-val">ramya@college.edu</span>
-          </div>
-          <div class="demo-cred-row">
-            <span class="demo-cred-lbl">Password:</span>
-            <span class="demo-cred-val">password123</span>
-          </div>
-        </div>
-        <div class="demo-actions">
-          <button type="button" class="btn-demo-fill" onclick="autoFillDemo()">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            <span>Auto-Fill Demo</span>
-          </button>
-          <button type="button" class="btn-demo-quick-login" onclick="quickDemoSignIn()">
-            <span>Quick 1-Click Sign In</span>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-          </button>
-        </div>
-      </div>
-
       ${alertHtml}
 
       <form method="POST" action="/signin" autocomplete="on">
@@ -1032,20 +1006,6 @@ function renderSignInPage(error?: string, registered?: boolean): string {
     </div>
   </div>
 
-  <script>
-    function autoFillDemo() {
-      var email = document.getElementById('email');
-      var pwd = document.getElementById('password');
-      if (email) email.value = 'ramya@college.edu';
-      if (pwd) pwd.value = 'password123';
-      if (email) email.focus();
-    }
-    function quickDemoSignIn() {
-      autoFillDemo();
-      var form = document.querySelector('form');
-      if (form) form.submit();
-    }
-  </script>
 </body>
 </html>`;
 }
@@ -1410,28 +1370,6 @@ function renderSignUpPage(error?: string): string {
       <div class="auth-toggle-group">
         <a href="/signin" class="auth-toggle-btn">Sign In</a>
         <a href="/signup" class="auth-toggle-btn active">Register</a>
-      </div>
-
-      <!-- Demo Info Notice (demo-file) -->
-      <div class="demo-box" style="margin-bottom: 16px;">
-        <div class="demo-box-header">
-          <div class="demo-box-title">
-            <svg class="demo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-            <span>Demo Account Ready</span>
-          </div>
-          <a href="/demo-file" target="_blank" class="demo-file-chip" title="View demo credentials file (demo-file.json)">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
-            <span>demo-file</span>
-          </a>
-        </div>
-        <p style="font-size: 12px; color: #475569; margin-bottom: 8px; line-height: 1.45;">
-          A test account (<strong>ramya@college.edu</strong> / <strong>password123</strong>) is already seeded. You can sign in directly or register a new custom profile below.
-        </p>
-        <div class="demo-actions">
-          <a href="/signin" class="btn-demo-quick-login">
-            <span>Use Demo Account on Sign In &rarr;</span>
-          </a>
-        </div>
       </div>
 
       ${alertHtml}
@@ -1831,47 +1769,6 @@ app.get('/', requireAuth, (req: Request, res: Response) => {
   } catch (err: any) {
     res.status(500).send(`<html><body><h2>Server Error</h2><p>${escapeHtml(err.message)}</p></body></html>`);
   }
-});
-
-// =============================================================================
-// POST HANDLERS FOR COMPANIES (PROTECTED)
-// =============================================================================
-app.post('/add-company', requireAuth, (req: Request, res: Response) => {
-  const { name, location, roleOffered, contactEmail } = req.body;
-  if (name && contactEmail) {
-    companies.push({
-      companyId: nextCompanyId++,
-      name: String(name).trim(),
-      location: String(location || 'India').trim(),
-      roleOffered: String(roleOffered || '').trim(),
-      contactEmail: String(contactEmail).trim()
-    });
-  }
-  res.redirect(303, '/#companies');
-});
-
-app.post('/update-company', requireAuth, (req: Request, res: Response) => {
-  const { companyId, name, location, roleOffered, contactEmail } = req.body;
-  const id = parseInt(companyId, 10);
-  const c = companies.find((item) => item.companyId === id);
-  if (c) {
-    c.name = String(name).trim();
-    c.location = String(location).trim();
-    c.roleOffered = String(roleOffered).trim();
-    c.contactEmail = String(contactEmail).trim();
-  }
-  res.redirect(303, '/#companies');
-});
-
-app.post('/delete-company', requireAuth, (req: Request, res: Response) => {
-  const id = parseInt(req.body.companyId, 10);
-  companies = companies.filter((c) => c.companyId !== id);
-  // ON DELETE CASCADE
-  const removedAppIds = applications.filter((a) => a.companyId === id).map((a) => a.applicationId);
-  applications = applications.filter((a) => a.companyId !== id);
-  interviews = interviews.filter((iv) => !removedAppIds.includes(iv.applicationId));
-  offers = offers.filter((o) => !removedAppIds.includes(o.applicationId));
-  res.redirect(303, '/#companies');
 });
 
 // =============================================================================

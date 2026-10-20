@@ -77,7 +77,7 @@ public class Main {
 
     private static void printMainMenu() {
         System.out.println("\n----------------- MAIN DASHBOARD MENU -----------------");
-        System.out.println("1. Company Management (Add, View, Update, Delete)");
+        System.out.println("1. View Companies");
         System.out.println("2. Application Management (Add, View, Search, Delete)");
         System.out.println("3. Status Tracking (Update Application Status)");
         System.out.println("4. Interview Tracking (Schedule, View, Update Result)");
@@ -92,75 +92,15 @@ public class Main {
     // 1. COMPANY MANAGEMENT
     // =========================================================================
     private static void handleCompanyMenu() throws SQLException {
-        System.out.println("\n--- [1] COMPANY MANAGEMENT ---");
-        System.out.println("1. View All Companies");
-        System.out.println("2. Add New Company");
-        System.out.println("3. Update Company Details");
-        System.out.println("4. Delete Company (Cascades to applications)");
-        System.out.print("Choose sub-option: ");
-        String sub = scanner.nextLine().trim();
-
-        switch (sub) {
-            case "1":
-                List<Company> list = companyDAO.getAllCompanies();
-                if (list.isEmpty()) {
-                    System.out.println("No companies recorded yet.");
-                } else {
-                    System.out.println("\nTotal Registered Companies: " + list.size());
-                    for (Company c : list) {
-                        System.out.println("  " + c);
-                    }
-                }
-                break;
-            case "2":
-                System.out.print("Company Name: ");
-                String name = scanner.nextLine().trim();
-                System.out.print("Location (e.g. Chennai, India): ");
-                String loc = scanner.nextLine().trim();
-                System.out.print("Role Offered: ");
-                String role = scanner.nextLine().trim();
-                System.out.print("Contact Email (unique): ");
-                String email = scanner.nextLine().trim();
-
-                Company newComp = new Company(name, loc, role, email);
-                companyDAO.addCompany(newComp);
-                System.out.println("Successfully added company with ID #" + newComp.getCompanyId());
-                break;
-            case "3":
-                System.out.print("Enter Company ID to update: ");
-                int compId = Integer.parseInt(scanner.nextLine().trim());
-                Company existing = companyDAO.getCompanyById(compId);
-                if (existing == null) {
-                    System.out.println("Company not found with ID #" + compId);
-                    return;
-                }
-                System.out.print("New Name (leave blank to keep '" + existing.getName() + "'): ");
-                String uName = scanner.nextLine().trim();
-                if (!uName.isEmpty()) existing.setName(uName);
-
-                System.out.print("New Location (leave blank to keep '" + existing.getLocation() + "'): ");
-                String uLoc = scanner.nextLine().trim();
-                if (!uLoc.isEmpty()) existing.setLocation(uLoc);
-
-                System.out.print("New Role Offered: ");
-                String uRole = scanner.nextLine().trim();
-                if (!uRole.isEmpty()) existing.setRoleOffered(uRole);
-
-                System.out.print("New Contact Email: ");
-                String uEmail = scanner.nextLine().trim();
-                if (!uEmail.isEmpty()) existing.setContactEmail(uEmail);
-
-                companyDAO.updateCompany(existing);
-                System.out.println("Company updated successfully.");
-                break;
-            case "4":
-                System.out.print("Enter Company ID to delete: ");
-                int delId = Integer.parseInt(scanner.nextLine().trim());
-                companyDAO.deleteCompany(delId);
-                System.out.println("Company #" + delId + " deleted successfully (cascaded to linked records).");
-                break;
-            default:
-                System.out.println("Invalid company menu option.");
+        System.out.println("\n--- [1] COMPANIES ---");
+        List<Company> list = companyDAO.getAllCompanies();
+        if (list.isEmpty()) {
+            System.out.println("No companies available.");
+        } else {
+            System.out.println("\nTotal Companies: " + list.size());
+            for (Company c : list) {
+                System.out.println("  " + c);
+            }
         }
     }
 

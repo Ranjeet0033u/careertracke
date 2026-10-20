@@ -1587,48 +1587,11 @@
       <div class="page-header">
         <div>
           <h2 class="page-title">Companies</h2>
-          <p class="page-subtitle">Manage company details for your applications.</p>
-        </div>
-        <div style="display: flex; gap: 10px;">
-          <a href="#modal-update-company" class="btn btn-secondary">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-            Update Company
-          </a>
-          <a href="#companies" class="btn btn-primary">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-            Add Company
-          </a>
+          <p class="page-subtitle">Product-based and service-based companies you can apply to.</p>
         </div>
       </div>
 
-      <div class="two-col-grid">
-        <!-- Add / Edit Company Form -->
-        <div class="form-panel">
-          <h3 class="form-title">Add / Edit Company</h3>
-          <form action="/add-company" method="post">
-            <div class="form-group">
-              <label class="form-label">Company Name</label>
-              <input type="text" name="name" class="form-input" placeholder="e.g. ABC Technologies" required>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Location</label>
-              <input type="text" name="location" class="form-input" placeholder="e.g. Chennai, India" required>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Role Offered</label>
-              <input type="text" name="roleOffered" class="form-input" placeholder="e.g. Software Developer Intern">
-            </div>
-            <div class="form-group">
-              <label class="form-label">Contact Email</label>
-              <input type="email" name="contactEmail" class="form-input" placeholder="e.g. hr@company.com" required>
-            </div>
-            <div class="form-actions">
-              <button type="submit" class="btn btn-primary">Save Company</button>
-              <a href="/#companies" class="btn btn-secondary">Cancel</a>
-            </div>
-          </form>
-        </div>
-
+      <div class="two-col-grid" style="grid-template-columns: 1fr;">
         <!-- Companies Table -->
         <div class="card">
           <div class="table-container">
@@ -1639,7 +1602,6 @@
                   <th>Company Name</th>
                   <th>Location</th>
                   <th>Contact Email</th>
-                  <th style="text-align: right;">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -2102,53 +2064,6 @@
           <div class="form-actions" style="margin-top: 24px;">
             <button type="submit" class="btn btn-primary" style="flex: 1;">Update Application</button>
             <a href="/#applications" class="btn btn-secondary" style="flex: 1;">Cancel</a>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <!-- ==========================================================================
-       UPDATE COMPANY MODAL (PURE CSS :TARGET)
-       ========================================================================== -->
-  <div id="modal-update-company" class="modal-backdrop">
-    <div class="modal-window">
-      <div class="modal-header">
-        <h3 class="modal-title">Update Company</h3>
-        <a href="#companies" class="modal-close-btn">&times;</a>
-      </div>
-      <div class="modal-body">
-        <form action="/update-company" method="post">
-          <div class="form-group">
-            <label class="form-label">Select Company to Update</label>
-            <select name="companyId" class="form-select" required>
-              <!-- DYNAMIC_COMPANY_OPTIONS -->
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">Company Name</label>
-            <input type="text" name="name" class="form-input" placeholder="e.g. ABC Technologies" required>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">Location</label>
-            <input type="text" name="location" class="form-input" placeholder="e.g. Chennai, India" required>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">Role Offered</label>
-            <input type="text" name="roleOffered" class="form-input" placeholder="e.g. Software Developer Intern">
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">Contact Email</label>
-            <input type="email" name="contactEmail" class="form-input" placeholder="e.g. hr@company.com" required>
-          </div>
-
-          <div class="form-actions" style="margin-top: 24px;">
-            <button type="submit" class="btn btn-primary" style="flex: 1;">Update Company</button>
-            <a href="/#companies" class="btn btn-secondary" style="flex: 1;">Cancel</a>
           </div>
         </form>
       </div>

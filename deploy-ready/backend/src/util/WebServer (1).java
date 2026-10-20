@@ -190,11 +190,6 @@ public class WebServer {
         server.createContext("/demo-file.json", new DemoFileHandler());
         server.createContext("/demo-account.json", new DemoFileHandler());
 
-        // POST Form Action Routes for Companies (Protected)
-        server.createContext("/add-company", new AddCompanyHandler());
-        server.createContext("/update-company", new UpdateCompanyHandler());
-        server.createContext("/delete-company", new DeleteCompanyHandler());
-
         // POST Form Action Routes for Applications (Protected)
         server.createContext("/add-application", new AddApplicationHandler());
         server.createContext("/update-application", new UpdateApplicationHandler());
@@ -739,7 +734,7 @@ public class WebServer {
 
     private static String renderCompaniesTable(List<Company> list) {
         if (list.isEmpty()) {
-            return "<tr><td colspan='5' style='text-align:center;padding:24px;color:#66758A;'>No companies recorded yet. Add your first company using the form on the left.</td></tr>";
+            return "<tr><td colspan='4' style='text-align:center;padding:24px;color:#66758A;'>No companies available.</td></tr>";
         }
         StringBuilder sb = new StringBuilder();
         int idx = 1;
@@ -749,19 +744,6 @@ public class WebServer {
               .append("<td class='primary-cell-text'>").append(escapeHtml(c.getName())).append("</td>")
               .append("<td>").append(escapeHtml(c.getLocation())).append("</td>")
               .append("<td>").append(escapeHtml(c.getContactEmail())).append("</td>")
-              .append("<td style='text-align: right;'>")
-              .append("<div class='actions-cell' style='justify-content: flex-end;'>")
-              .append("<a href='#modal-update-company' class='btn-icon-only' title='Edit Company' style='text-decoration:none;display:inline-flex;align-items:center;justify-content:center;color:#2563A6;background:#F0F6FD;'>")
-              .append("<svg width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><path d='M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7'></path><path d='M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z'></path></svg>")
-              .append("</a>")
-              .append("<form action='/delete-company' method='POST' style='display:inline;'>")
-              .append("<input type='hidden' name='companyId' value='").append(c.getCompanyId()).append("'>")
-              .append("<button type='submit' class='btn-icon-only btn-delete' title='Delete Company'>")
-              .append("<svg width='15' height='15' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><polyline points='3 6 5 6 21 6'></polyline><path d='M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2'></path></svg>")
-              .append("</button>")
-              .append("</form>")
-              .append("</div>")
-              .append("</td>")
               .append("</tr>");
         }
         return sb.toString();
@@ -1467,38 +1449,6 @@ public class WebServer {
           .append("    <div class='auth-toggle-group'>\n")
           .append("      <a href='/signin' class='auth-toggle-btn active'>Sign In</a>\n")
           .append("      <a href='/signup' class='auth-toggle-btn'>Register</a>\n")
-          .append("    </div>\n")
-          .append("    <div class='demo-box'>\n")
-          .append("      <div class='demo-box-header'>\n")
-          .append("        <div class='demo-box-title'>\n")
-          .append("          <svg class='demo-icon' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><circle cx='12' cy='12' r='10'></circle><line x1='12' y1='16' x2='12' y2='12'></line><line x1='12' y1='8' x2='12.01' y2='8'></line></svg>\n")
-          .append("          <span>Demo Account Credentials</span>\n")
-          .append("        </div>\n")
-          .append("        <a href='/demo-file' target='_blank' class='demo-file-chip' title='View demo credentials file (demo-file.json)'>\n")
-          .append("          <svg width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><path d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'></path><polyline points='14 2 14 8 20 8'></polyline><line x1='16' y1='13' x2='8' y2='13'></line><line x1='16' y1='17' x2='8' y2='17'></line></svg>\n")
-          .append("          <span>demo-file</span>\n")
-          .append("        </a>\n")
-          .append("      </div>\n")
-          .append("      <div class='demo-box-creds'>\n")
-          .append("        <div class='demo-cred-row'>\n")
-          .append("          <span class='demo-cred-lbl'>Email:</span>\n")
-          .append("          <span class='demo-cred-val'>ramya@college.edu</span>\n")
-          .append("        </div>\n")
-          .append("        <div class='demo-cred-row'>\n")
-          .append("          <span class='demo-cred-lbl'>Password:</span>\n")
-          .append("          <span class='demo-cred-val'>password123</span>\n")
-          .append("        </div>\n")
-          .append("      </div>\n")
-          .append("      <div class='demo-actions'>\n")
-          .append("        <button type='button' class='btn-demo-fill' onclick='autoFillDemo()'>\n")
-          .append("          <svg width='13' height='13' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5'><polyline points='20 6 9 17 4 12'></polyline></svg>\n")
-          .append("          <span>Auto-Fill Demo</span>\n")
-          .append("        </button>\n")
-          .append("        <button type='button' class='btn-demo-quick-login' onclick='quickDemoSignIn()'>\n")
-          .append("          <span>Quick 1-Click Sign In</span>\n")
-          .append("          <svg width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5'><line x1='5' y1='12' x2='19' y2='12'></line><polyline points='12 5 19 12 12 19'></polyline></svg>\n")
-          .append("        </button>\n")
-          .append("      </div>\n")
           .append("    </div>\n");
 
         if (registered) {
@@ -1551,20 +1501,6 @@ public class WebServer {
           .append("    </a>\n")
           .append("  </div>\n")
           .append("</div>\n")
-          .append("<script>\n")
-          .append("  function autoFillDemo() {\n")
-          .append("    var email = document.getElementById('email');\n")
-          .append("    var pwd = document.getElementById('password');\n")
-          .append("    if (email) email.value = 'ramya@college.edu';\n")
-          .append("    if (pwd) pwd.value = 'password123';\n")
-          .append("    if (email) email.focus();\n")
-          .append("  }\n")
-          .append("  function quickDemoSignIn() {\n")
-          .append("    autoFillDemo();\n")
-          .append("    var form = document.querySelector('form');\n")
-          .append("    if (form) form.submit();\n")
-          .append("  }\n")
-          .append("</script>\n")
           .append("</body>\n</html>");
 
         return sb.toString();
@@ -1913,26 +1849,6 @@ public class WebServer {
           .append("    <div class='auth-toggle-group'>\n")
           .append("      <a href='/signin' class='auth-toggle-btn'>Sign In</a>\n")
           .append("      <a href='/signup' class='auth-toggle-btn active'>Register</a>\n")
-          .append("    </div>\n")
-          .append("    <div class='demo-box' style='margin-bottom: 16px;'>\n")
-          .append("      <div class='demo-box-header'>\n")
-          .append("        <div class='demo-box-title'>\n")
-          .append("          <svg class='demo-icon' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><circle cx='12' cy='12' r='10'></circle><line x1='12' y1='16' x2='12' y2='12'></line><line x1='12' y1='8' x2='12.01' y2='8'></line></svg>\n")
-          .append("          <span>Demo Account Ready</span>\n")
-          .append("        </div>\n")
-          .append("        <a href='/demo-file' target='_blank' class='demo-file-chip' title='View demo credentials file (demo-file.json)'>\n")
-          .append("          <svg width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><path d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'></path><polyline points='14 2 14 8 20 8'></polyline><line x1='16' y1='13' x2='8' y2='13'></line><line x1='16' y1='17' x2='8' y2='17'></line></svg>\n")
-          .append("          <span>demo-file</span>\n")
-          .append("        </a>\n")
-          .append("      </div>\n")
-          .append("      <p style='font-size: 12px; color: #475569; margin-bottom: 8px; line-height: 1.45;'>\n")
-          .append("        A test account (<strong>ramya@college.edu</strong> / <strong>password123</strong>) is already seeded. You can sign in directly or register a new custom profile below.\n")
-          .append("      </p>\n")
-          .append("      <div class='demo-actions'>\n")
-          .append("        <a href='/signin' class='btn-demo-quick-login'>\n")
-          .append("          <span>Use Demo Account on Sign In &rarr;</span>\n")
-          .append("        </a>\n")
-          .append("      </div>\n")
           .append("    </div>\n");
 
         if (error != null && !error.isEmpty()) {
@@ -1990,76 +1906,6 @@ public class WebServer {
     // =========================================================================
     // POST HANDLERS FOR FORMS (PROTECTED BY SESSION GUARD)
     // =========================================================================
-
-    static class AddCompanyHandler implements HttpHandler {
-        @Override
-        public void handle(HttpExchange exchange) throws IOException {
-            if (getAuthenticatedSession(exchange) == null) {
-                sendRedirect(exchange, "/signin");
-                return;
-            }
-            if ("POST".equalsIgnoreCase(exchange.getRequestMethod())) {
-                Map<String, String> data = parseFormData(exchange);
-                String name = data.getOrDefault("name", "");
-                String location = data.getOrDefault("location", "");
-                String roleOffered = data.getOrDefault("roleOffered", "");
-                String contactEmail = data.getOrDefault("contactEmail", "");
-
-                if (!name.isEmpty() && !contactEmail.isEmpty()) {
-                    try {
-                        companyDAO.addCompany(new Company(name, location, roleOffered, contactEmail));
-                    } catch (SQLException e) {
-                        System.err.println("Error adding company: " + e.getMessage());
-                    }
-                }
-            }
-            sendRedirect(exchange, "/#companies");
-        }
-    }
-
-    static class UpdateCompanyHandler implements HttpHandler {
-        @Override
-        public void handle(HttpExchange exchange) throws IOException {
-            if (getAuthenticatedSession(exchange) == null) {
-                sendRedirect(exchange, "/signin");
-                return;
-            }
-            if ("POST".equalsIgnoreCase(exchange.getRequestMethod())) {
-                Map<String, String> data = parseFormData(exchange);
-                try {
-                    int id = Integer.parseInt(data.getOrDefault("companyId", "0"));
-                    String name = data.getOrDefault("name", "");
-                    String loc = data.getOrDefault("location", "");
-                    String role = data.getOrDefault("roleOffered", "");
-                    String email = data.getOrDefault("contactEmail", "");
-                    companyDAO.updateCompany(new Company(id, name, loc, role, email));
-                } catch (Exception e) {
-                    System.err.println("Error updating company: " + e.getMessage());
-                }
-            }
-            sendRedirect(exchange, "/#companies");
-        }
-    }
-
-    static class DeleteCompanyHandler implements HttpHandler {
-        @Override
-        public void handle(HttpExchange exchange) throws IOException {
-            if (getAuthenticatedSession(exchange) == null) {
-                sendRedirect(exchange, "/signin");
-                return;
-            }
-            if ("POST".equalsIgnoreCase(exchange.getRequestMethod())) {
-                Map<String, String> data = parseFormData(exchange);
-                try {
-                    int id = Integer.parseInt(data.getOrDefault("companyId", "0"));
-                    companyDAO.deleteCompany(id);
-                } catch (Exception e) {
-                    System.err.println("Error deleting company: " + e.getMessage());
-                }
-            }
-            sendRedirect(exchange, "/#companies");
-        }
-    }
 
     static class AddApplicationHandler implements HttpHandler {
         @Override
